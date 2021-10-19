@@ -1,0 +1,29 @@
+
+filebeat.prospectors:
+
+#================= ai-web-server log setting ========================
+- type: log
+  enabled: true
+  paths:
+    - /logs/all.log
+  json.keys_under_root: true
+  json.add_error_key: true
+  fields:
+    log_filename: pyspider-log
+
+
+#==================== Elasticsearch templates setting ==========================
+setup.template.overwrite: true
+setup.template.name: "pyspider-log"
+setup.template.pattern: "pyspider-log"
+setup.template.settings:
+  index.number_of_shards: 3
+
+#-------------------------- Elasticsearch output ------------------------------
+output.elasticsearch:
+  hosts: ["elk-elasticsearch:9200"]
+  index: "pyspider-log-%{+yyyy.MM.dd}"
+  indices:
+    - index: "pyspider-log-%{+yyyy.MM.dd}"
+      when.contains:
+        fields.log_filename: "pyspider-log"

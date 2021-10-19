@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "model/jingdong_flow.proto";
+
+package Crawler;
+
+// The greeting service definition.
+service Greeter {
+    // Sends a greeting
+    rpc SayHello (JingdongFlow.HelloRequest) returns (JingdongFlow.HelloReply) {
+    }
+    // Sends another greeting
+    rpc SayHelloAgain (JingdongFlow.HelloRequest) returns (JingdongFlow.HelloReply) {
+    }
+}

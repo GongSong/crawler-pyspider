@@ -1,0 +1,32 @@
+version: '3'
+services:
+  elk-filebeat:
+    image: prima/filebeat:6
+    volumes:
+    - ./elk/filebeat.yml:/filebeat.yml
+    - ./elk/fields.yml:/fields.yml
+    - ./data/filebeat:/data
+    - ../projects/logs:/logs
+
+  elk-elasticsearch:
+    build:
+      context: ./elk
+      dockerfile: Dockerfile-es
+    volumes:
+    - ./data/elasticsearch:/home/data
+    - ./elk/jvm.options:/elasticsearch-6.2.3/config/jvm.options
+    - ./elk/elasticsearch.yml:/elasticsearch-6.2.3/config/elasticsearch.yml
+    ports:
+    - "9200:9200"
+
+  elk-kibana:
+    build:
+      context: ./elk
+      dockerfile: Dockerfile-kibana
+    volumes:
+    - ./elk/kibana.yml:/kibana-6.2.3-linux-x86_64/config/kibana.yml
+    ports:
+    - "5601:5601"
+    links:
+    - elk-elasticsearch
+

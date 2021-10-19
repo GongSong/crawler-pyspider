@@ -1,0 +1,18 @@
+{
+  "taskdb": "mongodb+taskdb://root:pyspider@pyspider-mongo:27017/taskdb?authSource=admin&authMechanism=SCRAM-SHA-256",
+  "projectdb": "mongodb+projectdb://root:pyspider@pyspider-mongo:27017/projectdb?authSource=admin&authMechanism=SCRAM-SHA-256",
+  "resultdb": "mongodb+resultdb://root:pyspider@pyspider-mongo:27017/resultdb?authSource=admin&authMechanism=SCRAM-SHA-256",
+  "message_queue": "redis://pyspider-redis:6379/0",
+  "phantomjs-proxy": "pyspider-phantomjs:25555",
+  "fetcher": {
+    "xmlrpc": true,
+    "splash-endpoint": "http://pyspider-splash:8050/execute"
+  },
+  "webui": {
+    "username": "admin",
+    "password": "admin",
+    "need-auth": false,
+    "scheduler-rpc": "http://pyspider-scheduler:23333/",
+    "fetcher-rpc": "http://pyspider-fetcher:24444/"
+  }
+}

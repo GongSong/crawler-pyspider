@@ -1,0 +1,8 @@
+FROM ubuntu:16.04
+
+RUN apt-get update
+COPY kibana-6.2.3-linux-x86_64.tar.gz .
+RUN tar zxvf kibana-6.2.3-linux-x86_64.tar.gz
+#COPY kibana.yml kibana-6.2.3-linux-x86_64/config/kibana.yml
+RUN rm -f kibana-6.2.3-linux-x86_64/config/kibana.yml
+CMD kibana-6.2.3-linux-x86_64/bin/kibana

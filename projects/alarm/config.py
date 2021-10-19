@@ -1,0 +1,5 @@
+# 万里牛同步操作异常的通知群 的钉钉报警机器人：万里牛同步操作异常的通知
+HUPUN_SYNC_ABNORMAL_ROBOT = '1e3d755b23afad5874b4c263b523dac9edb63d0e6de206fa04eb00c1d5240a0c'
+
+# 测试机器人
+SPIDER_TEST_ROBOT = '87053027d1d9c2ca35b1eda6d248b3d087b764c135f1cb9b1b3387c47322d411'

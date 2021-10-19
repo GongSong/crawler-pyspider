@@ -1,0 +1,13 @@
+FROM ubuntu:16.04
+
+RUN apt-get update
+RUN apt-get -y install wget openjdk-8-jdk
+COPY elasticsearch-6.2.3.tar.gz .
+RUN tar zxvf elasticsearch-6.2.3.tar.gz
+#COPY jvm.options elasticsearch-6.2.3/config/jvm.options
+#COPY elasticsearch.yml elasticsearch-6.2.3/config/elasticsearch.yml
+RUN rm -f elasticsearch-6.2.3/config/jvm.options
+RUN rm -f elasticsearch-6.2.3/config/elasticsearch.yml
+RUN useradd elasticsearch
+RUN chown -R elasticsearch elasticsearch-6.2.3
+CMD ["su", "elasticsearch", "-c", "/elasticsearch-6.2.3/bin/elasticsearch"]
