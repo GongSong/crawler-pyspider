@@ -12,8 +12,8 @@ from flask import Response
 
 from .app import app
 
-from tianmao.handler import Handler as tm_handler
-from tianmao.model.tianmao import TianMao
+from hack_project.handler import Handler as tm_handler
+from hack_project.model.tianmao import TianMao
 
 from crawl_taobao_goods_migrate.model.result import Result as TaobaoGoodsResult
 from crawl_taobao_goods_migrate.page.goods_details import GoodsDetails
