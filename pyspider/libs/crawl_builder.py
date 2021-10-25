@@ -259,7 +259,7 @@ class CrawlBuilder:
 
     def set_kwargs_kv(self, key, value):
         """
-        设置某个参数键值对
+        设置Header的某个参数键值对
         :param key:
         :param value:
         :return:
@@ -269,7 +269,7 @@ class CrawlBuilder:
 
     def update_kwargs(self, kwargs: dict):
         """
-        更新整个参数键值对
+        更新Header的整个参数键值对
         :param kwargs:
         :return:
         """

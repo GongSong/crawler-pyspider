@@ -22,7 +22,7 @@ class WafCheck(BaseCrawl):
         builder = CrawlBuilder() \
             .set_url(self.url) \
             .set_headers(def_headers) \
-            .set_kwargs_kv('s', self.xsstring) \
+            .set_get_params_kv('s', self.xsstring) \
             .set_task_id(uuid.uuid4())
         return builder
 
