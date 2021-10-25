@@ -60,11 +60,10 @@ class GoodsRate(BaseCrawl):
         result['sync_time'] = Date.now().format_es_utc_with_tz()
         result['insert_date'] = Date.now().format(full=False)
         result['goods_url'] = self.__goods_url
-        EsTmallGoodsRate().update([result], async=True)
+        EsTmallGoodsRate().update([result], async_key=True)
 
         return {
             'unique_name': 'tmall_goods_rate',
             'url': self.URL.format(self.__goods_id),
             'content': response.text
         }
-

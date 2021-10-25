@@ -88,13 +88,13 @@ class Fetcher(object):
         self._running = False
         self._quit = False
         self.proxy = proxy
-        self.async = async_mode
+        self.async_key = async_mode
         self.ioloop = tornado.ioloop.IOLoop()
 
         self.robots_txt_cache = {}
 
         # binding io_loop to http_client here
-        if self.async:
+        if self.async_key:
             self.http_client = MyCurlAsyncHTTPClient(max_clients=self.poolsize,
                                                      io_loop=self.ioloop)
         else:
@@ -116,7 +116,7 @@ class Fetcher(object):
                 logger.exception(e)
 
     def fetch(self, task, callback=None):
-        if self.async:
+        if self.async_key:
             return self.async_fetch(task, callback)
         else:
             return self.async_fetch(task, callback).result()

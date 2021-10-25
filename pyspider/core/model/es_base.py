@@ -74,9 +74,9 @@ class Base(object):
         logger.info("esSearch: %s, %s, %s", self.get_index(), self.get_doc_type(), query)
         return self.cli.search(self.get_index(), self.get_doc_type(), query)
 
-    def bulk(self, body, async=False):
+    def bulk(self, body, async_key=False):
         logger.info("esBulk: %s, %s, %s", self.get_index(), self.get_doc_type(), len(body)/2)
-        if async:
+        if async_key:
             from es.page.bulk import Bulk
             Bulk(config.get('es', 'nodes').split(','), self.index, self.doc_type, body).enqueue()
             return
@@ -84,7 +84,7 @@ class Base(object):
         if result['errors']:
             logger.error("esBulk: %s, %s, %s, %s", self.get_index(), self.get_doc_type(), len(body)/2, result)
 
-    def script_update(self, docs: list, primary_keys=None, async=False):
+    def script_update(self, docs: list, primary_keys=None, async_key=False):
         if not primary_keys:
             primary_keys = self.primary_keys
         if not primary_keys:
@@ -95,9 +95,9 @@ class Base(object):
             body.append({'update': {'_id': _id, '_type': self.get_doc_type(), '_index': self.get_index()}})
             body.append({'script': _.get('script')})
         if len(body) > 0:
-            self.bulk(body, async)
+            self.bulk(body, async_key)
 
-    def update(self, docs: list, primary_keys=None, upsert=True, async=False):
+    def update(self, docs: list, primary_keys=None, upsert=True, async_key=False):
         if not primary_keys:
             primary_keys = self.primary_keys
         if not primary_keys:
@@ -110,23 +110,23 @@ class Base(object):
                 body.append({'update': {'_id': _id, '_type': self.get_doc_type(), '_index': self.get_index()}})
                 body.append({'doc': _, 'doc_as_upsert': upsert})
             if len(body) > 0:
-                self.bulk(body, async)
+                self.bulk(body, async_key)
 
     def delete(self, doc_id):
         self.cli.delete(self.get_index(), self.get_doc_type(), doc_id)
 
-    def batch_delete(self, deleted_ids: list, async=False):
+    def batch_delete(self, deleted_ids: list, async_key=False):
         """
         根据 _id 批量删除数据
         :param deleted_ids:
-        :param async:
+        :param async_key:
         :return:
         """
         body = []
         for _id in deleted_ids:
             body.append({"delete": {"_index": self.get_index(), "_type": self.get_doc_type(), "_id": _id}})
         if len(body) > 0:
-            self.bulk(body, async)
+            self.bulk(body, async_key)
 
     def delete_by_query(self, query):
         logger.info("esDeleteByQuery: %s, %s, %s", self.get_index(), self.get_doc_type(), query)

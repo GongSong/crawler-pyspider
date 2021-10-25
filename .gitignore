@@ -57,3 +57,4 @@ venv/
 */_trial_temp/
 local_script
 projects/conf/app.ini
+out
